@@ -6,5 +6,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bear extends Model
 {
-    //
+    // MASS ASSIGNMENT -------------------------------------------------------
+    // define which attributes are mass assignable (for security)
+    // we only want these 3 attributes able to be filled
+    protected $fillable = array('name', 'type', 'danger_level');
+
+    // DEFINE RELATIONSHIPS --------------------------------------------------
+    // each bear HAS many fishes to eat
+    public function fishes() {
+        return $this->hasMany('App\Fish'); // this matches the Eloquent model
+    }
+
+    // each bear climbs one tree
+    public function tree() {
+        return $this->hasOne('App\Tree');
+    }
+    
+    // each bear lives in one cave
+    public function cave() {
+        return $this->hasOne('App\Cave');
+    }
+    
+    // each bear BELONGS to many picnic
+    // define our pivot table also
+    public function picnics() {
+        return $this->belongsToMany('App\Picnic', 'bears_picnics', 
+                                    'bear_id', 'picnic_id');
+    }
+
 }

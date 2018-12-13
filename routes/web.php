@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['prefix'=>'bears','as'=>'bears'], function(){
+    Route::get('/', ['uses' =>'BearsController@listBear', 'as'=>'bears_list']);
+});

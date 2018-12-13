@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class FishesSeeder extends Seeder
+class TreeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,19 +14,17 @@ class FishesSeeder extends Seeder
         \App\Bear::chunk(50,function($bears){
             $faker = \Faker\Factory::create();
             foreach($bears as $bear){
-                for($i=0;$i<10;$i++){
-                    DB::table('fish')
-            ->insert([                
+                DB::table('trees')
+            ->insert([
+                'bear_id' => $bear->id,
                 'type'=> $faker->sentence(
                     $nbWords = 2,
                     $variableNbWords = true
                 ),
-                'weight' => $faker->numberBetween(1,250),
-                'bear_id' => $bear->id,
+                'age'=>$faker->numberBetween(1,150),
                 'created_at' => $faker->dateTime,
                 'updated_at'=> $faker->dateTime
             ]);
-                }                
             }
         });
     }
